@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnalyticaHub - AI & Analytics Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #7028e4;
+            --secondary: #e5b2ca;
+            --accent: #12c2e9;
+            --text-light: #ffffff;
+            --text-dark: #2d3436;
+            --gradient-1: linear-gradient(45deg, #7028e4 0%, #e5b2ca 100%);
+            --gradient-2: linear-gradient(45deg, #12c2e9 0%, #f64f59 100%);
+            --card-bg: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0f0c29;
+            background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        .glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .glow-1 {
+            top: -150px;
+            left: -150px;
+            background: var(--primary);
+        }
+
+        .glow-2 {
+            bottom: -150px;
+            right: -150px;
+            background: var(--secondary);
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(15, 12, 41, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.5rem 0;
+            background: rgba(15, 12, 41, 0.95);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            animation: fadeIn 1s ease 0.5s both;
+        }
+
+        .services {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: var(--gradient-1);
+            opacity: 0;
+            transform: rotate(45deg);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .service-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .posts {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .post-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 2rem;
+        }
+
+        .contact {
+            padding: 5rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(18, 194, 233, 0.2);
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 10px;
+            color: var(--text-light);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        #thankYouMessage {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .services-grid,
+            .posts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-1);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Glowing Effects -->
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <h1 class="logo">AnalyticaHub</h1>
+            <div class="nav-links">
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#posts" class="nav-link">Insights</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to AnalyticaHub</h1>
+            <p>Empowering businesses through cutting-edge AI solutions and data analytics</p>
+            <a href="#services" class="btn">Explore Our Services</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <h2>Our Services</h2>
+        <div class="services-grid">
+            <div class="service-card floating">
+                <div class="service-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>Data-Driven Decisions</h3>
+                <p>Transform your business with advanced analytics and AI-powered insights.</p>
+            </div>
+
+            <div class="service-card floating" style="animation-delay: 0.2s">
+                <div class="service-icon">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <h3>Computer Vision</h3>
+                <p>State-of-the-art face detection, recognition, and object detection solutions.</p>
+            </div>
+
+            <div class="service-card floating" style="animation-delay: 0.4s">
+                <div class="service-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3>NLP Solutions</h3>
+                <p>Advanced sentiment analysis and emotion detection capabilities.</p>
+            </div>
+
+            <div class="service-card floating" style="animation-delay: 0.6s">
+                <div class="service-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Predictive Analysis</h3>
+                <p>Forecast trends and make data-driven predictions for better business outcomes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Posts Section -->
+    <section id="posts" class="posts">
+        <h2>Latest Insights</h2>
+        <div class="posts-grid">
+            <div class="post-card">
+                <h3>AI in Business</h3>
+                <p>Exploring how artificial intelligence is transforming modern business operations.</p>
+            </div>
+            <div class="post-card">
+                <h3>Data Analytics Trends</h3>
+                <p>Latest trends and innovations in the world of data analytics.</p>
+            </div>
+            <div class="post-card">
+                <h3>Machine Learning Impact</h3>
+                <p>How machine learning is revolutionizing decision-making processes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2>Get in Touch</h2>
+        <form id="contactForm" action="https://formsubmit.co/mlds7337@gmail.com" method="POST">
+            <div class="form-group">
+                <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <input type="tel" name="phone" class="form-control" placeholder="Your Phone" required>
+            </div>
+            <div class="form-group">
+                <textarea name="message" class="form-control" rows="5" placeholder="Your Message" required></textarea>
+            </div>
+            <!-- Prevent spam -->
+            <input type="hidden" name="_captcha" value="true">
+            <!-- Disable formsubmit.co landing page -->
+            <input type="hidden" name="_next" value="false">
+            <button type="submit" class="btn">Send Message</button>
+        </form>
+    </section>
+
+    <!-- Thank You Message -->
+    <div id="thankYouMessage">
+        <h2>Thank You!</h2>
+        <p>Your message has been sent successfully. We'll get back to you soon!</p>
+        <button class="btn" onclick="closeThankYouMessage()">Close</button>
+    </div>
+
+    <script>
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
